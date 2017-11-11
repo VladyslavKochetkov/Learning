@@ -24,18 +24,21 @@ class App extends Component {
   }
 
   handleInputPushToArray(){
-    var temp = <div>{this.state.inputValue}</div>;
+    var ele = <div>{this.state.inputValue}</div>;
+    var tempArray = this.state.inputArray;
+    tempArray.push(ele);
     this.setState({
-        inputArray: this.state.inputArray + temp
+        inputArray: tempArray,
+        inputValue: ""
     })
   }
 
   handleInputChange(e){
-    if(e.KeyCode === 13){
+    if(e.key === "Enter"){
       this.handleInputPushToArray();
     }else{
       this.setState({
-        inputValue: e.target.value
+        inputValue: this.state.inputValue + e.key
       })
     }
   }
@@ -45,10 +48,11 @@ class App extends Component {
       <div className="App">
         <span>
           <button id={"button1"} onClick={this.handleButton1} style={{"margin": "3px 15px"}}>{this.state.button1Text}</button>
-          <input id={"input1"} onChange={e => this.handleInputChange(e)} value={this.state.inputValue}></input>
+          <input id={"input1"} onKeyPress={e => this.handleInputChange(e)} value={this.state.inputValue}></input>
         </span>
         <p id={"p1"}>{this.state.p1}</p>
         <p id={"p2"}>{this.state.inputValue}</p>
+        <p>{this.state.inputArray}</p>
       </div>
     );
   }
